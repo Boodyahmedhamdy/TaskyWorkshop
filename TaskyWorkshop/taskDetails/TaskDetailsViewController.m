@@ -38,6 +38,22 @@
 }
 
 - (IBAction)saveBtnClicked:(UIBarButtonItem *)sender {
+    
+    if(self.tfTitle.text.length == 0) {
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Task Title can't be empty" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:okAction];
+        [self.navigationController presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    
+    if(self.tvDesc.text.length == 0) {
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Task Description can't be empty" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:okAction];
+        [self.navigationController presentViewController:alert animated:YES completion:nil];
+        return;
+    }
         
     self.currentTask.taskTitle = self.tfTitle.text;
     self.currentTask.taskDesc = self.tvDesc.text;

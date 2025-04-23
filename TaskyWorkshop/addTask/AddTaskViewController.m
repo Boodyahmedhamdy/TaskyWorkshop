@@ -33,8 +33,6 @@
 - (IBAction)createBtnClicked:(UIBarButtonItem *)sender {
     
     NSLog(@"clicked on create");
-    Task* newTask = [[Task alloc] init];
-    newTask.taskTitle = self.tfTitle.text;
     
     if(self.tfTitle.text.length == 0) {
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Task Title can't be empty" preferredStyle:UIAlertControllerStyleAlert];
@@ -44,8 +42,6 @@
         return;
     }
     
-    newTask.taskDesc = self.tvDesc.text;
-    
     if(self.tvDesc.text.length == 0) {
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Task Description can't be empty" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
@@ -54,6 +50,9 @@
         return;
     }
     
+    Task* newTask = [[Task alloc] init];
+    newTask.taskTitle = self.tfTitle.text;
+    newTask.taskDesc = self.tvDesc.text;
     newTask.taskPriority = self.scPriority.selectedSegmentIndex;
     newTask.taskState = TaskStateTodo;
     newTask.taskDate = self.dbDate.date;
