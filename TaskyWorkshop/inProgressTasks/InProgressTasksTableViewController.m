@@ -1,17 +1,18 @@
 //
-//  TodoTasksTableViewController.m
+//  InProgressTasksTableViewController.m
 //  TaskyWorkshop
 //
 //  Created by JETSMobileLabMini10 on 23/04/2025.
 //
 
-#import "TodoTasksTableViewController.h"
+#import "InProgressTasksTableViewController.h"
 #import "../datalayer/Task.h"
 #import "../datalayer/TasksHelper.h"
 #import "../addTask/AddTaskViewController.h"
 #import "../taskDetails/TaskDetailsViewController.h"
 
-@interface TodoTasksTableViewController ()
+
+@interface InProgressTasksTableViewController ()
 
 @property TasksHelper* helper;
 @property NSMutableArray<Task*>* allTodoTasks;
@@ -22,17 +23,18 @@
 
 @end
 
-@implementation TodoTasksTableViewController
+@implementation InProgressTasksTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.helper = [[TasksHelper alloc] init];
     self.allTodoTasks = [NSMutableArray new];
     self.lowTasks = [NSMutableArray new];
     self.normalTasks = [NSMutableArray new];
     self.highTasks = [NSMutableArray new];
     
-    self.allTodoTasks = [[self.helper getTasksByState:TaskStateTodo] mutableCopy];
+    self.allTodoTasks = [[self.helper getTasksByState:TaskStateInProgress] mutableCopy];
     self.lowTasks = [[self getListByPriority:TaskPriorityLow] mutableCopy];
     self.normalTasks = [[self getListByPriority:TaskPriorityNormal] mutableCopy];
     self.highTasks = [[self getListByPriority:TaskPriorityHigh] mutableCopy];
@@ -44,8 +46,21 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+-(NSArray*) getListByPriority:(TaskPriority) priority {
+    NSMutableArray* result = [NSMutableArray new];
+    
+    for(int i = 0 ; i < self.allTodoTasks.count ; i++) {
+        Task* currentTask = [self.allTodoTasks objectAtIndex:i];
+        if(currentTask.taskPriority == priority) {
+            [result addObject:currentTask];
+        }
+    }
+    
+    return result;
+}
+
 -(void) getFreshData {
-    self.allTodoTasks = [[self.helper getTasksByState:TaskStateTodo] mutableCopy];
+    self.allTodoTasks = [[self.helper getTasksByState:TaskStateInProgress] mutableCopy];
     self.lowTasks = [[self getListByPriority:TaskPriorityLow] mutableCopy];
     self.normalTasks = [[self getListByPriority:TaskPriorityNormal] mutableCopy];
     self.highTasks = [[self getListByPriority:TaskPriorityHigh] mutableCopy];
@@ -56,10 +71,32 @@
     NSLog(@"data synced");
     [self getFreshData];
 }
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 3;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+
+    switch (section) {
+        case 0:
+            return self.lowTasks.count;
+            break;
+            
+        case 1:
+            return self.normalTasks.count;
+            break;
+            
+        case 2:
+            return self.highTasks.count;
+            break;
+            
+        default:
+            return [self getListByPriority:TaskPriorityLow].count;
+            break;
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -81,42 +118,6 @@
             break;
     }
 }
-
--(NSArray*) getListByPriority:(TaskPriority) priority {
-    NSMutableArray* result = [NSMutableArray new];
-    
-    for(int i = 0 ; i < self.allTodoTasks.count ; i++) {
-        Task* currentTask = [self.allTodoTasks objectAtIndex:i];
-        if(currentTask.taskPriority == priority) {
-            [result addObject:currentTask];
-        }
-    }
-    
-    return result;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    switch (section) {
-        case 0:
-            return self.lowTasks.count;
-            break;
-            
-        case 1:
-            return self.normalTasks.count;
-            break;
-            
-        case 2:
-            return self.highTasks.count;
-            break;
-            
-        default:
-            return [self getListByPriority:TaskPriorityLow].count;
-            break;
-    }
-}
-
-
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -180,15 +181,6 @@
     }
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -223,38 +215,30 @@
     
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    Task* selectedTask;
-    switch (indexPath.section) {
-        case 0:
-            selectedTask = [self.lowTasks objectAtIndex:indexPath.row];
-            break;
-            
-        case 1:
-            selectedTask = [self.normalTasks objectAtIndex:indexPath.row];
-            break;
-            
-        case 2:
-            selectedTask = [self.highTasks objectAtIndex:indexPath.row];
-            break;
-            
-        default:
-            break;
-    }
-    
-    
-    self.selectedTask = selectedTask;
-    NSLog(@"updated the task");
-    
-    
-    
-//    TaskDetailsViewController* taskDetailsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailsScreenId"];
-//    taskDetailsVC.currentTask = selectedTask;
-//    [self.navigationController pushViewController:taskDetailsVC animated:YES];
-    
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 150;
 }
 
+
+/*
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+*/
+
+/*
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
+}
+*/
 
 /*
 // Override to support rearranging the table view.
@@ -270,33 +254,14 @@
 }
 */
 
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 150;
-}
+/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if([segue.identifier isEqualToString:@"addTaskSegue"]) {
-        
-        AddTaskViewController* addTaskVC = [segue destinationViewController];
-        addTaskVC.syncDataDelegate = self;
-        
-    } else if ([segue.identifier isEqualToString:@"taskDetailsSegue"]) {
-        
-        TaskDetailsViewController* taskDetailsVC = [segue destinationViewController];
-        taskDetailsVC.currentTask = self.selectedTask;
-        taskDetailsVC.syncDataDelegate = self;
-        
-        NSLog(@"prepaed for navigation");
-        
-    }
-    
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-
+*/
 
 @end

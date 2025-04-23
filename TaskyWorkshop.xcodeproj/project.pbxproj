@@ -17,6 +17,8 @@
 		D62E81162DB8D2620068AB5C /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = D62E81152DB8D2620068AB5C /* Task.m */; };
 		D62E81192DB8D52E0068AB5C /* TasksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D62E81182DB8D52E0068AB5C /* TasksHelper.m */; };
 		D69F71E32DB8E60F00E7D03B /* TaskTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D69F71E22DB8E60F00E7D03B /* TaskTableViewCell.m */; };
+		D69F71E72DB8FD5F00E7D03B /* TaskDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D69F71E62DB8FD5F00E7D03B /* TaskDetailsViewController.m */; };
+		D69F71EB2DB909C400E7D03B /* InProgressTasksTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D69F71EA2DB909C400E7D03B /* InProgressTasksTableViewController.m */; };
 		D6BB388A2DB8DC2D00F72D8D /* TodoTasksTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BB38892DB8DC2D00F72D8D /* TodoTasksTableViewController.m */; };
 		D6BB388D2DB8DC5500F72D8D /* AddTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BB388C2DB8DC5500F72D8D /* AddTaskViewController.m */; };
 /* End PBXBuildFile section */
@@ -41,6 +43,10 @@
 		D69F71E02DB8E16400E7D03B /* SyncDataDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyncDataDelegate.h; sourceTree = "<group>"; };
 		D69F71E12DB8E60F00E7D03B /* TaskTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskTableViewCell.h; sourceTree = "<group>"; };
 		D69F71E22DB8E60F00E7D03B /* TaskTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskTableViewCell.m; sourceTree = "<group>"; };
+		D69F71E52DB8FD5F00E7D03B /* TaskDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskDetailsViewController.h; sourceTree = "<group>"; };
+		D69F71E62DB8FD5F00E7D03B /* TaskDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskDetailsViewController.m; sourceTree = "<group>"; };
+		D69F71E92DB909C400E7D03B /* InProgressTasksTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InProgressTasksTableViewController.h; sourceTree = "<group>"; };
+		D69F71EA2DB909C400E7D03B /* InProgressTasksTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InProgressTasksTableViewController.m; sourceTree = "<group>"; };
 		D6BB38882DB8DC2D00F72D8D /* TodoTasksTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodoTasksTableViewController.h; sourceTree = "<group>"; };
 		D6BB38892DB8DC2D00F72D8D /* TodoTasksTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodoTasksTableViewController.m; sourceTree = "<group>"; };
 		D6BB388B2DB8DC5500F72D8D /* AddTaskViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddTaskViewController.h; sourceTree = "<group>"; };
@@ -77,6 +83,8 @@
 		222C5C542DB8D100000DF445 /* TaskyWorkshop */ = {
 			isa = PBXGroup;
 			children = (
+				D69F71E82DB9090500E7D03B /* inProgressTasks */,
+				D69F71E42DB8FD2E00E7D03B /* taskDetails */,
 				D6BB38872DB8DBFA00F72D8D /* todoTasks */,
 				D6BB38862DB8DBE200F72D8D /* addTask */,
 				D62E81132DB8D2430068AB5C /* datalayer */,
@@ -107,6 +115,24 @@
 				D62E81182DB8D52E0068AB5C /* TasksHelper.m */,
 			);
 			path = datalayer;
+			sourceTree = "<group>";
+		};
+		D69F71E42DB8FD2E00E7D03B /* taskDetails */ = {
+			isa = PBXGroup;
+			children = (
+				D69F71E52DB8FD5F00E7D03B /* TaskDetailsViewController.h */,
+				D69F71E62DB8FD5F00E7D03B /* TaskDetailsViewController.m */,
+			);
+			path = taskDetails;
+			sourceTree = "<group>";
+		};
+		D69F71E82DB9090500E7D03B /* inProgressTasks */ = {
+			isa = PBXGroup;
+			children = (
+				D69F71E92DB909C400E7D03B /* InProgressTasksTableViewController.h */,
+				D69F71EA2DB909C400E7D03B /* InProgressTasksTableViewController.m */,
+			);
+			path = inProgressTasks;
 			sourceTree = "<group>";
 		};
 		D6BB38862DB8DBE200F72D8D /* addTask */ = {
@@ -205,6 +231,8 @@
 				222C5C572DB8D100000DF445 /* AppDelegate.m in Sources */,
 				D6BB388D2DB8DC5500F72D8D /* AddTaskViewController.m in Sources */,
 				222C5C682DB8D103000DF445 /* main.m in Sources */,
+				D69F71E72DB8FD5F00E7D03B /* TaskDetailsViewController.m in Sources */,
+				D69F71EB2DB909C400E7D03B /* InProgressTasksTableViewController.m in Sources */,
 				222C5C5A2DB8D100000DF445 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
