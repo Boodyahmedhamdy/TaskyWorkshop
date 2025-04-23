@@ -16,6 +16,9 @@
 		222C5C682DB8D103000DF445 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 222C5C672DB8D103000DF445 /* main.m */; };
 		D62E81162DB8D2620068AB5C /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = D62E81152DB8D2620068AB5C /* Task.m */; };
 		D62E81192DB8D52E0068AB5C /* TasksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D62E81182DB8D52E0068AB5C /* TasksHelper.m */; };
+		D69F71E32DB8E60F00E7D03B /* TaskTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D69F71E22DB8E60F00E7D03B /* TaskTableViewCell.m */; };
+		D6BB388A2DB8DC2D00F72D8D /* TodoTasksTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BB38892DB8DC2D00F72D8D /* TodoTasksTableViewController.m */; };
+		D6BB388D2DB8DC5500F72D8D /* AddTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BB388C2DB8DC5500F72D8D /* AddTaskViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +38,13 @@
 		D62E81152DB8D2620068AB5C /* Task.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
 		D62E81172DB8D52E0068AB5C /* TasksHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TasksHelper.h; sourceTree = "<group>"; };
 		D62E81182DB8D52E0068AB5C /* TasksHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TasksHelper.m; sourceTree = "<group>"; };
+		D69F71E02DB8E16400E7D03B /* SyncDataDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyncDataDelegate.h; sourceTree = "<group>"; };
+		D69F71E12DB8E60F00E7D03B /* TaskTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskTableViewCell.h; sourceTree = "<group>"; };
+		D69F71E22DB8E60F00E7D03B /* TaskTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskTableViewCell.m; sourceTree = "<group>"; };
+		D6BB38882DB8DC2D00F72D8D /* TodoTasksTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodoTasksTableViewController.h; sourceTree = "<group>"; };
+		D6BB38892DB8DC2D00F72D8D /* TodoTasksTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodoTasksTableViewController.m; sourceTree = "<group>"; };
+		D6BB388B2DB8DC5500F72D8D /* AddTaskViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddTaskViewController.h; sourceTree = "<group>"; };
+		D6BB388C2DB8DC5500F72D8D /* AddTaskViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddTaskViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +77,8 @@
 		222C5C542DB8D100000DF445 /* TaskyWorkshop */ = {
 			isa = PBXGroup;
 			children = (
+				D6BB38872DB8DBFA00F72D8D /* todoTasks */,
+				D6BB38862DB8DBE200F72D8D /* addTask */,
 				D62E81132DB8D2430068AB5C /* datalayer */,
 				222C5C552DB8D100000DF445 /* AppDelegate.h */,
 				222C5C562DB8D100000DF445 /* AppDelegate.m */,
@@ -74,11 +86,14 @@
 				222C5C592DB8D100000DF445 /* SceneDelegate.m */,
 				222C5C5B2DB8D100000DF445 /* ViewController.h */,
 				222C5C5C2DB8D100000DF445 /* ViewController.m */,
+				D69F71E02DB8E16400E7D03B /* SyncDataDelegate.h */,
 				222C5C5E2DB8D100000DF445 /* Main.storyboard */,
 				222C5C612DB8D103000DF445 /* Assets.xcassets */,
 				222C5C632DB8D103000DF445 /* LaunchScreen.storyboard */,
 				222C5C662DB8D103000DF445 /* Info.plist */,
 				222C5C672DB8D103000DF445 /* main.m */,
+				D69F71E12DB8E60F00E7D03B /* TaskTableViewCell.h */,
+				D69F71E22DB8E60F00E7D03B /* TaskTableViewCell.m */,
 			);
 			path = TaskyWorkshop;
 			sourceTree = "<group>";
@@ -92,6 +107,24 @@
 				D62E81182DB8D52E0068AB5C /* TasksHelper.m */,
 			);
 			path = datalayer;
+			sourceTree = "<group>";
+		};
+		D6BB38862DB8DBE200F72D8D /* addTask */ = {
+			isa = PBXGroup;
+			children = (
+				D6BB388B2DB8DC5500F72D8D /* AddTaskViewController.h */,
+				D6BB388C2DB8DC5500F72D8D /* AddTaskViewController.m */,
+			);
+			path = addTask;
+			sourceTree = "<group>";
+		};
+		D6BB38872DB8DBFA00F72D8D /* todoTasks */ = {
+			isa = PBXGroup;
+			children = (
+				D6BB38882DB8DC2D00F72D8D /* TodoTasksTableViewController.h */,
+				D6BB38892DB8DC2D00F72D8D /* TodoTasksTableViewController.m */,
+			);
+			path = todoTasks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,8 +199,11 @@
 			files = (
 				D62E81192DB8D52E0068AB5C /* TasksHelper.m in Sources */,
 				D62E81162DB8D2620068AB5C /* Task.m in Sources */,
+				D69F71E32DB8E60F00E7D03B /* TaskTableViewCell.m in Sources */,
+				D6BB388A2DB8DC2D00F72D8D /* TodoTasksTableViewController.m in Sources */,
 				222C5C5D2DB8D100000DF445 /* ViewController.m in Sources */,
 				222C5C572DB8D100000DF445 /* AppDelegate.m in Sources */,
+				D6BB388D2DB8DC5500F72D8D /* AddTaskViewController.m in Sources */,
 				222C5C682DB8D103000DF445 /* main.m in Sources */,
 				222C5C5A2DB8D100000DF445 /* SceneDelegate.m in Sources */,
 			);

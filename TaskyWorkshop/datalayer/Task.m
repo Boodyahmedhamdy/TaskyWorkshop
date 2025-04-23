@@ -30,7 +30,7 @@
     self.taskDesc = [coder decodeObjectOfClass:[NSString class] forKey:@"taskDesc"];
     self.taskPriority = [coder decodeIntegerForKey:@"taskPriority"];
     self.taskState = [coder decodeIntegerForKey:@"taskState"];
-    self.taskDate = [coder decodeObjectOfClass:[NSDate] forKey:@"taskDate"];
+    self.taskDate = [coder decodeObjectOfClass:[NSDate class] forKey:@"taskDate"];
     
     NSLog(@"initialzed from coder task %@", self.taskId);
     return self;
