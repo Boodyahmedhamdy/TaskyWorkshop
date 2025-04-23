@@ -14,6 +14,8 @@
 		222C5C622DB8D103000DF445 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 222C5C612DB8D103000DF445 /* Assets.xcassets */; };
 		222C5C652DB8D103000DF445 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 222C5C632DB8D103000DF445 /* LaunchScreen.storyboard */; };
 		222C5C682DB8D103000DF445 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 222C5C672DB8D103000DF445 /* main.m */; };
+		D62E81162DB8D2620068AB5C /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = D62E81152DB8D2620068AB5C /* Task.m */; };
+		D62E81192DB8D52E0068AB5C /* TasksHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D62E81182DB8D52E0068AB5C /* TasksHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,10 @@
 		222C5C642DB8D103000DF445 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		222C5C662DB8D103000DF445 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		222C5C672DB8D103000DF445 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D62E81142DB8D2620068AB5C /* Task.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
+		D62E81152DB8D2620068AB5C /* Task.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
+		D62E81172DB8D52E0068AB5C /* TasksHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TasksHelper.h; sourceTree = "<group>"; };
+		D62E81182DB8D52E0068AB5C /* TasksHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TasksHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +67,7 @@
 		222C5C542DB8D100000DF445 /* TaskyWorkshop */ = {
 			isa = PBXGroup;
 			children = (
+				D62E81132DB8D2430068AB5C /* datalayer */,
 				222C5C552DB8D100000DF445 /* AppDelegate.h */,
 				222C5C562DB8D100000DF445 /* AppDelegate.m */,
 				222C5C582DB8D100000DF445 /* SceneDelegate.h */,
@@ -74,6 +81,17 @@
 				222C5C672DB8D103000DF445 /* main.m */,
 			);
 			path = TaskyWorkshop;
+			sourceTree = "<group>";
+		};
+		D62E81132DB8D2430068AB5C /* datalayer */ = {
+			isa = PBXGroup;
+			children = (
+				D62E81142DB8D2620068AB5C /* Task.h */,
+				D62E81152DB8D2620068AB5C /* Task.m */,
+				D62E81172DB8D52E0068AB5C /* TasksHelper.h */,
+				D62E81182DB8D52E0068AB5C /* TasksHelper.m */,
+			);
+			path = datalayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,6 +164,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D62E81192DB8D52E0068AB5C /* TasksHelper.m in Sources */,
+				D62E81162DB8D2620068AB5C /* Task.m in Sources */,
 				222C5C5D2DB8D100000DF445 /* ViewController.m in Sources */,
 				222C5C572DB8D100000DF445 /* AppDelegate.m in Sources */,
 				222C5C682DB8D103000DF445 /* main.m in Sources */,
