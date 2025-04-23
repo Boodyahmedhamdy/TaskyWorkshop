@@ -141,16 +141,6 @@
     NSString* imagePath = [self getImagePathWithPriority: currentTask.taskPriority];
     taskImageview.image = [UIImage imageNamed: imagePath];
     
-    UILabel* descLabel = [cell viewWithTag:3];
-    descLabel.text = currentTask.taskDesc;
-    
-    UILabel* dateLabel = [cell viewWithTag:4];
-    dateLabel.text = @"33.2/s34";
-    
-    UILabel* idLabel = [cell viewWithTag:5];
-    idLabel.text = currentTask.taskId;
-    
-    
     return cell;
 }
 
@@ -173,21 +163,17 @@
     }
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
 
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if(editingStyle == UITableViewCellEditingStyleDelete) {
         Task* selectedTask;
-        
+//        NSString* message;
+//        UIAlertController* alert;
+//        UIAlertAction* cancelAction;
+//        UIAlertAction* deleteAction;
+//        
         switch (indexPath.section) {
             case 0:
                 selectedTask = [self.lowTasks objectAtIndex:indexPath.row];
@@ -244,21 +230,6 @@
     
 }
 
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     NSLog(@"%@", searchText);
     self.allTodoTasks = [[self.helper searchTasksByTitle:searchText] mutableCopy];
@@ -270,7 +241,7 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 150;
+    return 70;
 }
 #pragma mark - Navigation
 

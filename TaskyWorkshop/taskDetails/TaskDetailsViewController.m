@@ -33,6 +33,8 @@
     self.scStates.selectedSegmentIndex = self.currentTask.taskState;
     self.datePicker.date = self.currentTask.taskDate;
     
+    self.datePicker.minimumDate = [NSDate date];
+    
 }
 
 - (IBAction)saveBtnClicked:(UIBarButtonItem *)sender {

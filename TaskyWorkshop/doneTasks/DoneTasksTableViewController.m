@@ -1,18 +1,17 @@
 //
-//  InProgressTasksTableViewController.m
+//  DoneTasksTableViewController.m
 //  TaskyWorkshop
 //
 //  Created by JETSMobileLabMini10 on 23/04/2025.
 //
 
-#import "InProgressTasksTableViewController.h"
+#import "DoneTasksTableViewController.h"
 #import "../datalayer/Task.h"
 #import "../datalayer/TasksHelper.h"
 #import "../addTask/AddTaskViewController.h"
 #import "../taskDetails/TaskDetailsViewController.h"
 
-
-@interface InProgressTasksTableViewController ()
+@interface DoneTasksTableViewController ()
 
 @property TasksHelper* helper;
 @property NSMutableArray<Task*>* allTodoTasks;
@@ -24,7 +23,7 @@
 
 @end
 
-@implementation InProgressTasksTableViewController
+@implementation DoneTasksTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,7 +35,7 @@
     self.highTasks = [NSMutableArray new];
     self.isFiltering = NO;
     
-    self.allTodoTasks = [[self.helper getTasksByState:TaskStateInProgress] mutableCopy];
+    self.allTodoTasks = [[self.helper getTasksByState:TaskStateDone] mutableCopy];
     self.lowTasks = [[self getListByPriority:TaskPriorityLow] mutableCopy];
     self.normalTasks = [[self getListByPriority:TaskPriorityNormal] mutableCopy];
     self.highTasks = [[self getListByPriority:TaskPriorityHigh] mutableCopy];
@@ -65,7 +64,7 @@
 }
 
 -(void) getFreshData {
-    self.allTodoTasks = [[self.helper getTasksByState:TaskStateInProgress] mutableCopy];
+    self.allTodoTasks = [[self.helper getTasksByState:TaskStateDone] mutableCopy];
     self.lowTasks = [[self getListByPriority:TaskPriorityLow] mutableCopy];
     self.normalTasks = [[self getListByPriority:TaskPriorityNormal] mutableCopy];
     self.highTasks = [[self getListByPriority:TaskPriorityHigh] mutableCopy];
@@ -80,7 +79,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.isFiltering ? 3 : 1;
+    return self.isFiltering ? 3 : 1;;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -131,7 +130,6 @@
         return @"";
     }
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"taskCell" forIndexPath:indexPath];
@@ -231,10 +229,7 @@
             
         } else {
             selectedTask = [self.allTodoTasks objectAtIndex:indexPath.row];
-            [self.helper deleteTask:selectedTask];
-            [self.lowTasks removeObject:selectedTask];
         }
-        
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
@@ -270,8 +265,7 @@
     } else {
         selectedTask = [self.allTodoTasks objectAtIndex:indexPath.row];
     }
-    
-    
+
     TaskDetailsViewController* taskDetailsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailsScreenId"];
     taskDetailsVC.currentTask = selectedTask;
     taskDetailsVC.syncDataDelegate = self;

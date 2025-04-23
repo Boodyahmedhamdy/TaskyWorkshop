@@ -48,6 +48,7 @@
     NSLog(@"encoded object with id %@ and title %@", self.taskId, self.taskTitle);
 }
 
+
 + (BOOL)supportsSecureCoding {
     return YES;
 }
