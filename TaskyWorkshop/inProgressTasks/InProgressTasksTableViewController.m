@@ -20,6 +20,7 @@
 @property NSMutableArray<Task*>* normalTasks;
 @property NSMutableArray<Task*>* highTasks;
 @property Task* selectedTask;
+@property BOOL isFiltering;
 
 @end
 
@@ -33,17 +34,21 @@
     self.lowTasks = [NSMutableArray new];
     self.normalTasks = [NSMutableArray new];
     self.highTasks = [NSMutableArray new];
+    self.isFiltering = NO;
     
     self.allTodoTasks = [[self.helper getTasksByState:TaskStateInProgress] mutableCopy];
     self.lowTasks = [[self getListByPriority:TaskPriorityLow] mutableCopy];
     self.normalTasks = [[self getListByPriority:TaskPriorityNormal] mutableCopy];
     self.highTasks = [[self getListByPriority:TaskPriorityHigh] mutableCopy];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self syncData];
+}
+
+- (IBAction)filter:(UIBarButtonItem *)sender {
+    self.isFiltering = !self.isFiltering;
+    [self.tableView reloadData];
 }
 
 -(NSArray*) getListByPriority:(TaskPriority) priority {
@@ -75,47 +80,57 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return self.isFiltering ? 3 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    switch (section) {
-        case 0:
-            return self.lowTasks.count;
-            break;
-            
-        case 1:
-            return self.normalTasks.count;
-            break;
-            
-        case 2:
-            return self.highTasks.count;
-            break;
-            
-        default:
-            return [self getListByPriority:TaskPriorityLow].count;
-            break;
+    if(self.isFiltering) {
+        switch (section) {
+            case 0:
+                return self.lowTasks.count;
+                break;
+                
+            case 1:
+                return self.normalTasks.count;
+                break;
+                
+            case 2:
+                return self.highTasks.count;
+                break;
+                
+            default:
+                return [self getListByPriority:TaskPriorityLow].count;
+                break;
+        }
+    }else {
+        return self.allTodoTasks.count;
     }
+    
+    
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    switch (section) {
-        case 0:
-            return @"Low";
-            break;
-            
-        case 1:
-            return @"Normal";
-            break;
-            
-        case 2:
-            return @"High";
-            break;
+    if(self.isFiltering) {
+        switch (section) {
+            case 0:
+                return @"Low";
+                break;
+                
+            case 1:
+                return @"Normal";
+                break;
+                
+            case 2:
+                return @"High";
+                break;
 
-        default:
-            return @"NONE";
-            break;
+            default:
+                return @"NONE";
+                break;
+        }
+    } else {
+        return @"";
     }
 }
 
@@ -124,22 +139,27 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"taskCell" forIndexPath:indexPath];
     
     Task* currentTask;
-    switch (indexPath.section) {
-        case 0:
-            currentTask = [self.lowTasks objectAtIndex:indexPath.row];
-            break;
-            
-        case 1:
-            currentTask = [self.normalTasks objectAtIndex:indexPath.row];
-            break;
-            
-        case 2:
-            currentTask = [self.highTasks objectAtIndex:indexPath.row];
-            break;
-            
-        default:
-            break;
+    if(self.isFiltering) {
+        switch (indexPath.section) {
+            case 0:
+                currentTask = [self.lowTasks objectAtIndex:indexPath.row];
+                break;
+                
+            case 1:
+                currentTask = [self.normalTasks objectAtIndex:indexPath.row];
+                break;
+                
+            case 2:
+                currentTask = [self.highTasks objectAtIndex:indexPath.row];
+                break;
+                
+            default:
+                break;
+        }
+    } else {
+        currentTask = [self.allTodoTasks objectAtIndex:indexPath.row];
     }
+    
     
     // Configure the cell...
     UILabel* titleLabel = [cell viewWithTag:1];
@@ -187,27 +207,36 @@
     if(editingStyle == UITableViewCellEditingStyleDelete) {
         Task* selectedTask;
         
-        switch (indexPath.section) {
-            case 0:
-                selectedTask = [self.lowTasks objectAtIndex:indexPath.row];
-                [self.helper deleteTask:selectedTask];
-                [self.lowTasks removeObject:selectedTask];
-                break;
-                
-            case 1:
-                selectedTask = [self.normalTasks objectAtIndex:indexPath.row];
-                [self.helper deleteTask:selectedTask];
-                [self.normalTasks removeObject:selectedTask];
-                break;
-            case 2:
-                selectedTask = [self.highTasks objectAtIndex:indexPath.row];
-                [self.helper deleteTask:selectedTask];
-                [self.highTasks removeObject:selectedTask];
-                break;
-                
-            default:
-                break;
+        if(self.isFiltering) {
+            
+            switch (indexPath.section) {
+                case 0:
+                    selectedTask = [self.lowTasks objectAtIndex:indexPath.row];
+                    [self.helper deleteTask:selectedTask];
+                    [self.lowTasks removeObject:selectedTask];
+                    break;
+                    
+                case 1:
+                    selectedTask = [self.normalTasks objectAtIndex:indexPath.row];
+                    [self.helper deleteTask:selectedTask];
+                    [self.normalTasks removeObject:selectedTask];
+                    break;
+                case 2:
+                    selectedTask = [self.highTasks objectAtIndex:indexPath.row];
+                    [self.helper deleteTask:selectedTask];
+                    [self.highTasks removeObject:selectedTask];
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+        } else {
+            selectedTask = [self.allTodoTasks objectAtIndex:indexPath.row];
+            [self.helper deleteTask:selectedTask];
+            [self.lowTasks removeObject:selectedTask];
         }
+        
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
@@ -219,26 +248,42 @@
     return 150;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    Task* selectedTask;
+    
+    if(self.isFiltering) {
+        switch (indexPath.section) {
+            case 0:
+                selectedTask = [self.lowTasks objectAtIndex:indexPath.row];
+                break;
+                
+            case 1:
+                selectedTask = [self.normalTasks objectAtIndex:indexPath.row];
+                break;
+                
+            case 2:
+                selectedTask = [self.highTasks objectAtIndex:indexPath.row];
+                break;
+                
+            default:
+                break;
+        }
+    } else {
+        selectedTask = [self.allTodoTasks objectAtIndex:indexPath.row];
+    }
+    
+    
+    
+    
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    TaskDetailsViewController* taskDetailsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailsScreenId"];
+    taskDetailsVC.currentTask = selectedTask;
+    taskDetailsVC.syncDataDelegate = self;
+    [self.navigationController pushViewController:taskDetailsVC animated:YES];
+    
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
 
 /*
 // Override to support rearranging the table view.
@@ -254,14 +299,16 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
+/*
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+
 }
-*/
+ */
 
 @end

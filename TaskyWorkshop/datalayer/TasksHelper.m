@@ -98,6 +98,28 @@
     NSLog(@"deleted task successfully with id: %@", task.taskId);
 }
 
+- (NSArray<Task *> *)searchTasksByTitle:(NSString *)title {
+    
+    if(title.length == 0) {
+        return [self getTasksByState:TaskStateTodo];
+    }
+    
+    NSMutableArray* results = [NSMutableArray new];
+    NSArray* allTasks = [self getTasksByState:TaskStateTodo];
+    
+    for(int i  = 0 ; i < allTasks.count ; i++) {
+        Task* currentTask = [allTasks objectAtIndex:i];
+        
+        ;
+        
+        if([[currentTask.taskTitle lowercaseString] containsString:[title lowercaseString]]) {
+            [results addObject:currentTask];
+        }
+    }
+    
+    return results;
+}
+
 
 
 @end

@@ -1,10 +1,3 @@
-//
-//  TodoTasksTableViewController.m
-//  TaskyWorkshop
-//
-//  Created by JETSMobileLabMini10 on 23/04/2025.
-//
-
 #import "TodoTasksTableViewController.h"
 #import "../datalayer/Task.h"
 #import "../datalayer/TasksHelper.h"
@@ -12,6 +5,7 @@
 #import "../taskDetails/TaskDetailsViewController.h"
 
 @interface TodoTasksTableViewController ()
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @property TasksHelper* helper;
 @property NSMutableArray<Task*>* allTodoTasks;
@@ -36,12 +30,6 @@
     self.lowTasks = [[self getListByPriority:TaskPriorityLow] mutableCopy];
     self.normalTasks = [[self getListByPriority:TaskPriorityNormal] mutableCopy];
     self.highTasks = [[self getListByPriority:TaskPriorityHigh] mutableCopy];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 -(void) getFreshData {
@@ -50,6 +38,11 @@
     self.normalTasks = [[self getListByPriority:TaskPriorityNormal] mutableCopy];
     self.highTasks = [[self getListByPriority:TaskPriorityHigh] mutableCopy];
     [self.tableView reloadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [self syncData];
 }
 
 - (void)syncData {
@@ -244,14 +237,10 @@
     }
     
     
-    self.selectedTask = selectedTask;
-    NSLog(@"updated the task");
-    
-    
-    
-//    TaskDetailsViewController* taskDetailsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailsScreenId"];
-//    taskDetailsVC.currentTask = selectedTask;
-//    [self.navigationController pushViewController:taskDetailsVC animated:YES];
+    TaskDetailsViewController* taskDetailsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailsScreenId"];
+    taskDetailsVC.currentTask = selectedTask;
+    taskDetailsVC.syncDataDelegate = self;
+    [self.navigationController pushViewController:taskDetailsVC animated:YES];
     
 }
 
@@ -270,6 +259,15 @@
 }
 */
 
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    NSLog(@"%@", searchText);
+    self.allTodoTasks = [[self.helper searchTasksByTitle:searchText] mutableCopy];
+    self.lowTasks = [[self getListByPriority:TaskPriorityLow] mutableCopy];
+    self.normalTasks = [[self getListByPriority:TaskPriorityNormal] mutableCopy];
+    self.highTasks = [[self getListByPriority:TaskPriorityHigh] mutableCopy];
+    [self.tableView reloadData];
+}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 150;
@@ -278,24 +276,15 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
     if([segue.identifier isEqualToString:@"addTaskSegue"]) {
         
         AddTaskViewController* addTaskVC = [segue destinationViewController];
         addTaskVC.syncDataDelegate = self;
         
-    } else if ([segue.identifier isEqualToString:@"taskDetailsSegue"]) {
-        
-        TaskDetailsViewController* taskDetailsVC = [segue destinationViewController];
-        taskDetailsVC.currentTask = self.selectedTask;
-        taskDetailsVC.syncDataDelegate = self;
-        
-        NSLog(@"prepaed for navigation");
-        
     }
     
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
 }
 
 

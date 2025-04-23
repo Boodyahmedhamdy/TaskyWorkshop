@@ -47,9 +47,6 @@
     [self.syncDataDelegate syncData];
     [self.navigationController popViewControllerAnimated:YES];
     
-    
-    
-    
 }
 
 

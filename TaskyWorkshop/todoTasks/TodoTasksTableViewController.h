@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TodoTasksTableViewController : UITableViewController<SyncDataDelegate>
+@interface TodoTasksTableViewController : UITableViewController<SyncDataDelegate, UISearchBarDelegate>
 
 @end
 

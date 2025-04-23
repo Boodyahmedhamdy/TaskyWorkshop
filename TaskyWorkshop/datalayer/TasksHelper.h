@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSArray<Task*> *) getTasksByState: (TaskState) state;
 -(NSArray<Task*> *) getTasksByPriority: (TaskPriority) priority;
 
+-(NSArray<Task*> *) searchTasksByTitle: (NSString*) title;
+
 -(void) addTask: (Task*) task;
 -(void) updateTask: (Task*) task;
 -(void) deleteTask: (Task*) task;
