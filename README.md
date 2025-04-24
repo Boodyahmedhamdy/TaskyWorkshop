@@ -36,9 +36,8 @@ This is a simple yet powerful **Todo Tasks** application built using **Objective
 ## 🛠️ Technical Details
 
 - **Language:** Objective-C  
-- **Architecture:** MVC (Model-View-Controller)  
 - **UI:** Built with UIKit using `UITableViewController`  
-- **Data Persistence:** `NSUserDefaults` (or specify if you're using CoreData or another mechanism)  
+- **Data Persistence:** `NSUserDefaults` 
 - **Screens:**
   - TodoViewController
   - InProgressViewController
@@ -47,14 +46,9 @@ This is a simple yet powerful **Todo Tasks** application built using **Objective
 
 - **Task Model Includes:**
   - `title` (NSString)
+  - `description` (NSString)
   - `priority` (enum or NSString – Low, Normal, High)
   - `state` (enum – Todo, InProgress, Done)
-
----
-
-## 📷 Screenshots
-
-_Add your app screenshots here if available._
 
 ---
 
