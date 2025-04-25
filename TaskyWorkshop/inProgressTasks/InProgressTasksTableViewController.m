@@ -232,7 +232,7 @@
         } else {
             selectedTask = [self.allTodoTasks objectAtIndex:indexPath.row];
             [self.helper deleteTask:selectedTask];
-            [self.lowTasks removeObject:selectedTask];
+            [self.allTodoTasks removeObject:selectedTask];
         }
         
         

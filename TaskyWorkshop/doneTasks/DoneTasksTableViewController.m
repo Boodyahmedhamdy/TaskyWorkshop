@@ -229,6 +229,8 @@
             
         } else {
             selectedTask = [self.allTodoTasks objectAtIndex:indexPath.row];
+            [self.helper deleteTask:selectedTask];
+            [self.allTodoTasks removeObject:selectedTask];
         }
         
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
