@@ -1,6 +1,8 @@
 
 # 📝 Todo Tasks iOS App (Objective-C)
 
+![workshop](media/Tasky%20Workshop.jpg) 
+
 This is a simple yet powerful **Todo Tasks** application built using **Objective-C** for iOS. It allows users to manage tasks effectively using different states and priorities. The app is designed with clean, user-friendly interfaces and includes a range of task management features such as creating, updating, searching, and filtering tasks.
 
 ---
